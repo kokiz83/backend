@@ -2,7 +2,6 @@
 const http = require('http')
 const dotenv = require('dotenv')
 const result = dotenv.config()
-
 //importer l'app.js
 const app = require('./app')
 const normalizePort = val => {
@@ -16,9 +15,8 @@ const normalizePort = val => {
   }
   return false;
 };
-const port = normalizePort(process.env.PORT || '3000');
+const port = normalizePort(process.env.PORT || '3000');
 app.set('port', port);
-
 const errorHandler = error => {
   if (error.syscall !== 'listen') {
     throw error;
@@ -40,7 +38,6 @@ const errorHandler = error => {
 };
 
 const server = http.createServer(app);
-
 server.on('error', errorHandler);
 server.on('listening', () => {
   const address = server.address();
