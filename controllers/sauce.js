@@ -12,7 +12,7 @@ exports.createSauce = (req, res, next) => {
   delete sauceObject._id
   const sauce = new Sauce({
     ...sauceObject,
-  //imageUrl: `${req.protocol}://${req.get('host')}/images/${req.file.filename}` // on resout chaque segment de l'urL
+  imageUrl: `${req.protocol}://${req.get('host')}/images/${req.file.filename}` // on resout chaque segment de l'urL
 
   })
   sauce
