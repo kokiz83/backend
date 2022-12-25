@@ -12,7 +12,7 @@ exports.createSauce = (req, res, next) => {
   delete sauceObject._id
   const sauce = new Sauce({
     ...sauceObject,
-  imageUrl: `${req.protocol}://${req.get('host')}/images/${req.file.filename}` // on resout chaque segment de l'urL
+  //imageUrl: `${req.protocol}://${req.get('host')}/images/${req.file.filename}` // on resout chaque segment de l'urL
 
   })
   sauce
@@ -76,7 +76,7 @@ exports.modifysauce = (req, res, next) => {
   } else {
     // Sinon, mettre à jour la sauce sans changer l'image
     Sauce.updateOne({ _id: req.params.id }, { ...sauceObject, _id: req.params.id })
-      .then(() => res.status(200).json({ message: 'Sauce mise à jour! sans changer l image' }))
+      .then(() => res.status(200).json({ message: 'Sauce mise à jour! sans changement' }))
       .catch((error) => res.status(400).json({ error }));
   }
 };
