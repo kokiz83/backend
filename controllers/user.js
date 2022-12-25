@@ -52,7 +52,7 @@ exports.login = (req, res, next) => {
           // si le password et valive ou correct
           res.status(200).json({
             userId: user._id,
-            token: jwt.sign({ userId: user._id }, process.env.JWT_KEY_TOKEN, {
+            token: jwt.sign({ userId: user._id }, `${process.env.JWT_KEY_TOKEN}`, {
               expiresIn: "24h"
             })
           })
