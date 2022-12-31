@@ -7,7 +7,7 @@ const userRoutes = require('./routes/user')
 const sauceRoutes = require('./routes/sauce.js')
 const cors = require('cors')
 const path = require('path');//maiddlerwar
-require('dotenv').config({path: process.cwd() + '/.env'})
+require('dotenv').config()
 
 app
 .use(morgan("dev"))
