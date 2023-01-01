@@ -6,7 +6,7 @@ const passwordValidator = require('password-validator');
 const passwordSchema = new passwordValidator();
 
 
- 
+// contraintes du mot de passe 
 passwordSchema
 .is().min(5)                                    // Minimum length 8
 .is().max(100)                                  // Maximum length 100

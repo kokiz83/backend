@@ -12,6 +12,10 @@ const jwt = require('jsonwebtoken');
 module.exports = (req, res, next) => {
 
   try {
+    if (!req.headers.authorization) {
+      // S'assurer que l'utilisateur est connecté en recherchant les en-têtes d'autorisation
+      throw "Merci de vous connecter";
+    }
     // On récupère le token dans le header de la requête autorisation, on récupère uniquement le deuxième élément du tableau (car split)
     const token = req.headers.authorization.split(' ')[1];
     // On vérifie le token décodé avec la clé secrète initiéé avec la création du token encodé initialement (Cf Controller user), les clés doivent correspondre
@@ -22,7 +26,6 @@ module.exports = (req, res, next) => {
     const userId = decodedToken.userId;
     console.log("userId du token")
     console.log(decodedToken.userId)
-    
     
     
     req.auth =  {userId: userId}

@@ -1,21 +1,26 @@
 const Sauce = require('../models/sauce')
+const multer = require('multer')
 //importation fs
 const fs = require('fs')
 // Crée un sauce
 exports.createSauce = (req, res, next) => {
-  console.log(req.body)
+ 
+  
   console.log("req.body.sauce") 
   console.log(req.body) 
   const sauceObject = JSON.parse(req.body.sauce)
-
- console.log("sauceObject") 
- console.log(sauceObject) 
+delete sauceObject._id
+delete sauceObject._userId
+  
   const sauce = new Sauce({ 
     ...sauceObject,
     userId : req.auth.userId,
+    likes : 0,
+    dislikes: 0,
+    usersLiked: [' '],
+    usersDisliked:[' '],
 imageUrl: `${req.protocol}://${req.get('host')}/images/${req.file.filename}` // on resout chaque segment de l'urL
-
-  }) 
+}) 
   sauce.save() 
     .then(() => {
       res.status(201).json({ message: 'sauce crée et enregistré' });
@@ -25,15 +30,16 @@ imageUrl: `${req.protocol}://${req.get('host')}/images/${req.file.filename}` // 
   //
 
   exports.modifySauce = (req, res, next) => {
+    console.log(req.body.file)
     const sauceObject = req.file ? {
         ...JSON.parse(req.body.sauce),
         imageUrl: `${req.protocol}://${req.get('host')}/images/${req.file.filename}`
     } : { ...req.body };
-  
+  console.log("req.file")
     delete sauceObject._userId;
     Sauce.findOne({_id: req.params.id})
         .then((sauce) => {
-            if (sauce.userId != req.auth.userId) {
+            if (sauce.userId != req.auth.userId) { 
                 res.status(401).json({ message : 'Not authorized'});
                 console.log("userId dans le auth")
     console.log(req.auth.userId)
@@ -103,7 +109,7 @@ exports.likeSauce = (req, res, next) => {
         $inc: { likes: req.body.like++ },
         $push: { usersLiked: req.body.userId }
       })
-      .then((sauce) => res.status(200).json({ message: 'Like ajouté !' }))
+      .then((sauce) => res.status(200).json({ message: 'Merci ! Votre avis a été pris en compte' }))
       .catch(error => res.status(400).json({ error }));
   } else if (req.body.like === -1) {
     // Si l'utilisateur n'aime pas la sauce
@@ -113,7 +119,7 @@ exports.likeSauce = (req, res, next) => {
         $inc: { dislikes: (req.body.like++) * -1 },
         $push: { usersDisliked: req.body.userId }
       })
-      .then((sauce) => res.status(200).json({ message: 'Dislike ajouté !' }))
+      .then((sauce) => res.status(200).json({ message: 'Merci ! Votre avis a été pris en compte !' }))
       .catch(error => res.status(400).json({ error }));
   } else {
     // Si like === 0 l'utilisateur supprime son vote

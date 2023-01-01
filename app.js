@@ -1,19 +1,32 @@
+// on a besion de:
+
 const express = require('express')
 const mongoose = require('./db/db')
+// Lancer l'appliquation Express
 const app = express()
+//La sécurité nécessite
 const helmet = require('helmet')
 const morgan = require('morgan')
+require('dotenv').config()
+ // middleware express-rate-limit pour limiter le nombre de requêtes effectuées
+const rateLimit = require("express-rate-limit");
+const limiter = rateLimit({
+  windowMs: 30 * 60 * 1000,
+  max: 100,
+});
+// Routes
 const userRoutes = require('./routes/user')
 const sauceRoutes = require('./routes/sauce.js')
+
 const cors = require('cors')
 const path = require('path');//maiddlerwar
-require('dotenv').config()
 
 app
 .use(morgan("dev"))
 .use(cors())
 .use(express.json())
 .use(helmet())
+.use(limiter) 
 
 app.use(helmet.crossOriginResourcePolicy({ policy: 'cross-origin' }));
 app.use((req, res, next) => {
