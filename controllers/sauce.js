@@ -35,6 +35,7 @@ imageUrl: `${req.protocol}://${req.get('host')}/images/${req.file.filename}` // 
     delete sauceObject._userId;
     Sauce.findOne({_id: req.params.id})
         .then((sauce) => {
+        
             if (sauce.userId != req.auth.userId) { 
                 res.status(401).json({ message : 'Not authorized'});
 
@@ -44,9 +45,9 @@ imageUrl: `${req.protocol}://${req.get('host')}/images/${req.file.filename}` // 
                 .then(() => res.status(200).json({message : 'Objet modifié!'}))
                 .catch(error => res.status(401).json({ error }));
             }
-        })
+        }) 
         .catch((error) => {
-            res.status(400).json({ error });
+            res.status(400).json({ error });  
         });
  };
   
