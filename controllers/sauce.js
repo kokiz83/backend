@@ -1,13 +1,10 @@
 const Sauce = require('../models/sauce')
-const multer = require('multer')
 //importation fs
 const fs = require('fs')
 // Crée un sauce
+//capture enregistre la sauce transformée en string dans la bdd
+//initialise like et dislike a 0 avec tableau vides
 exports.createSauce = (req, res, next) => {
- 
-  
-  console.log("req.body.sauce") 
-  console.log(req.body) 
   const sauceObject = JSON.parse(req.body.sauce)
 delete sauceObject._id
 delete sauceObject._userId
@@ -27,23 +24,22 @@ imageUrl: `${req.protocol}://${req.get('host')}/images/${req.file.filename}` // 
     })
     .catch((error) => res.status(400).json({ error }))
   }   
-  //
-
+  //met a jour la sauce avec l'id fournis  capture image url de la sauce
   exports.modifySauce = (req, res, next) => {
-    console.log(req.body.file)
+   
     const sauceObject = req.file ? {
         ...JSON.parse(req.body.sauce),
         imageUrl: `${req.protocol}://${req.get('host')}/images/${req.file.filename}`
     } : { ...req.body };
-  console.log("req.file")
+ 
     delete sauceObject._userId;
     Sauce.findOne({_id: req.params.id})
         .then((sauce) => {
             if (sauce.userId != req.auth.userId) { 
                 res.status(401).json({ message : 'Not authorized'});
-                console.log("userId dans le auth")
-    console.log(req.auth.userId)
-            } else {
+
+            }
+            else {
                 Sauce.updateOne({ _id: req.params.id}, { ...sauceObject, _id: req.params.id})
                 .then(() => res.status(200).json({message : 'Objet modifié!'}))
                 .catch(error => res.status(401).json({ error }));
@@ -56,7 +52,7 @@ imageUrl: `${req.protocol}://${req.get('host')}/images/${req.file.filename}` // 
   
  
 
-//   
+//revoie un tableau de toute les sauces 
 exports.getAllSauces = (req, res, next) => {
   Sauce.find()
     .then((sauces) => {
@@ -64,23 +60,18 @@ exports.getAllSauces = (req, res, next) => {
     })
     .catch((error) => res.status(400).json({ error }))
 } 
-//
+// renvoie la sauce avec l'id fourni
 exports.getOnesauce = (req, res, next) => {
   Sauce.findOne({ 
-    _id: req.params.id,
+    _id: req.params.id
   })
     .then((sauce) => {
       res.status(200).json(sauce);
     })
     .catch((error) => res.status(404).json({ error }))
 } 
-   
-//
-  ////////////////////////////////////////////////////////////////////////////////////
 
-  ///////////////////////////////////////////////////////////////////////////////
-
-//Supprimer une sauce
+//Supprimer une sauce avec l'id fourni
 exports.deletesauce = (req, res, next) => {
   Sauce.findOne({ _id: req.params.id})
       .then(sauce => { 

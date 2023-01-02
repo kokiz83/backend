@@ -23,7 +23,7 @@ exports.signup = (req, res, next) => {
         email: req.body.email,
         password: hash,
       });
-      console.log(user);
+     
       //On enregistre l'utilisateur dans la base de données
       user
         .save()
@@ -42,12 +42,12 @@ exports.signup = (req, res, next) => {
 sinon il renvoie une erreur*/
 exports.login = (req, res, next) => {
   const { email, password } = req.body;
-  console.log({ email, password });
+ 
   //chercher dans la base de donnée si lutilisateur est bien présent
   User.findOne({ email })
     // si le mail de  l'user n'est pas présent il n'existe pas
     .then((user) => {
-      console.log(user);
+    
       if (!user) {
         res.status(400).json({ error: "utilisateur existe pas!" });
       }
@@ -55,7 +55,7 @@ exports.login = (req, res, next) => {
       bcrypt
         .compare(req.body.password, user.password)
         .then((controlPass) => {
-          console.log(controlPass);
+       
           if (!controlPass) {
             return res.status(401).json({ error: "le password et incorrect" });
           }

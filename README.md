@@ -1,13 +1,14 @@
 P6 PIQUANTE
+///////////////////////////
 Il s'agit du serveur frontal et principal du projet 6 du parcours développeur Web.
-
+///////////////////////////////
 Backend
 Les technologies utilisées pour le back: un server NodeJS, une base de données MongoDB, le framework Express et le pack Mongoose.
-
+/////////////////////////////////////////
 Implémenter le fichier .env du dossier mongoDb_connect fourni à la racine du dossier backend pour la connexion à la base de données MongoDB.
-
+///////////////////////////////////////
 Démarrer avec node server ou nodemon server.
-
+//////////////////////////////////
 Lancer l'application
 Afin d'afficher la page, suivez les étapes suivantes :
 
