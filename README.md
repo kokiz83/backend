@@ -1,23 +1,26 @@
-P6 PIQUANTE
-///////////////////////////
-Il s'agit du serveur frontal et principal du projet 6 du parcours développeur Web.
-///////////////////////////////
-Backend
-Les technologies utilisées pour le back: un server NodeJS, une base de données MongoDB, le framework Express et le pack Mongoose.
-/////////////////////////////////////////
-Implémenter le fichier .env du dossier mongoDb_connect fourni à la racine du dossier backend pour la connexion à la base de données MongoDB.
-///////////////////////////////////////
-Démarrer avec node server ou nodemon server.
-//////////////////////////////////
-Lancer l'application
-Afin d'afficher la page, suivez les étapes suivantes :
+P6 parcour developpeur Web Openclassrooms Construisez une API sécurisée pour une application d'avis gastronomiques
 
-Cliquez sur le bouton vert "Code"
-Cliquez sur "Download ZIP"
-Extraire du zip et ouvrir dossier sur votre éditeur de code
-Tapez dans terminal de commande les lignes suivantes: "cd backend" puis "node server"
-Se rendre dans le code à travers de l'explorateur de fichiers
-Aller dans le dossier Frontend et faire un clic droit
-Choisir "Afficher plus d'options" puis "git bash here"
-Tapez dans le terminal le code suivant : ng serve -o
+pour lancer le projet et pouvoir utlilisé l'API veuillez suivre les étapes ci-dessous:
+
+1:installez node.js
+2:installez angular CLI
+3:installez nodemon
+4:installez les dependances pour le backend et le frontend.pour ce faire,à patir du dossier racine lancer "npm install" pour les dépendances du front, pour le dossier backend à partir d'un nouvel invit de commande entrer "cd backend" puis "npm install" pour installer les dépendances du backend.
+
+Front-end : A partir du dossier racine lancer la commande "npm run start" lancer le projet en local sur le port 4200 ou copier coller ce lien dans vôtre navigateur http://localhost:4200/
+
+Backend : A partir de la racine du projet entrer la commande "cd backend" afin de vous rendre dans le dossier backend via l'invit de commande. Ensuite entrer la commande "nodemon server" afin de lancer le server et de bénéficier des rafraichissements de pages automatique via le server nodemon.
+
+Accedez au server sur le port 3000.
+
+Ce projet est en relation avec une base de données MongoDB.
+
+.env.exemple:
+DB_USERNAME = '*******'
+DB_PASSWORD = '*********'
+DB_CLUSTER = "clusterX.*******"
+JWT_KEY_TOKEN ="mettre mot clé forte" 
+
+le fichier .env sera envoyé à l'évaluateur dans le dossier .zip pour lui permettre un accès admin à nôtre base de données.
+
 
