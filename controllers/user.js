@@ -1,8 +1,6 @@
 /* On retrouve ici la logique métier en lien avec nos utilisateurs, 
 appliqué aux routes POST pour les opérations d'inscription et de connexion*/
 
-const mongoose = require("mongoose");
-
 // importation models de la base de donnée user.js
 const User = require("../models/user");
 const bcrypt = require("bcrypt");// On utilise l'algorithme bcrypt pour hasher le mot de passe des utilisateurs
